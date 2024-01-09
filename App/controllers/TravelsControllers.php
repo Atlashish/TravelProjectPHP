@@ -16,11 +16,17 @@ class TravelsControllers
 
     public function readAll()
 {
-    $statement = Travels::readAll();
-    if (!empty($statement)) {
-        Response::get(200, $statement);
+    $country = $_GET['country'] ?? null;
+    $seatsAvailable = $_GET['seats_available'] ?? null;
+
+    if ($country !== null || $seatsAvailable !== null) {
+        // Chiamata a una funzione di filtro o ricerca con $country e $seatsAvailable
+        $filteredTravels = Travels::search($country, $seatsAvailable);
+        Response::get(200, $filteredTravels);
     } else {
-        Response::get(404, "No travels found");
+        // Nessun parametro specificato, restituisci tutti i viaggi
+        $allTravels = Travels::readAll();
+        Response::get(200, $allTravels);
     }
 }
 

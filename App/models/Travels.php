@@ -18,6 +18,36 @@ class Travels
         return $results;
     }
 
+    public static function search($country, $seatsAvailable)
+{
+    $params = [];
+    $conditions = [];
+    $query = "SELECT * FROM " . self::$table_name . " WHERE";
+
+    if ($country !== null || $seatsAvailable !== null) {
+
+        if ($country !== null) {
+            $conditions[] = "country LIKE :country";
+            $params['country'] = "%{$country}%";
+        }
+
+        if ($seatsAvailable !== null) {
+            $conditions[] = "seats_available > :seats_available";
+            $params['seats_available'] = $seatsAvailable;
+        }
+
+        $query .= " " . implode(" AND ", $conditions);
+
+        $statement = App::resolver('database')::query($query, $params);
+        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $results;
+    } else {
+        // Se entrambi i parametri sono nulli, restituisci tutti i viaggi
+        return self::readAll();
+    }
+}
+
     public static function read($id)
     {
         $statement = App::resolver('database')::query(
