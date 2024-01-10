@@ -1,4 +1,6 @@
 <?php
+/* The Database class is a PHP class that provides a connection to a MySQL database and allows for
+executing queries. */
 
 namespace Core;
 

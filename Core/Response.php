@@ -1,4 +1,6 @@
 <?php
+/* The Response class is a PHP class that handles HTTP responses by setting the response code, content
+type, and encoding the data as JSON. */
 
 namespace Core;
 

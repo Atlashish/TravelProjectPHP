@@ -5,6 +5,12 @@
             "App\\": "App/"
         }
     },
+    "authors": [
+        {
+            "name": "Giovanni",
+            "email": "giovanni.lor23@gmail.com"
+        }
+    ],
     "require": {
         "vlucas/phpdotenv": "^5.6"
     }

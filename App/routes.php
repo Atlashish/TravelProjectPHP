@@ -1,7 +1,5 @@
 <?php
 
-use Core\Response;
-
 $router->get('project/countries', 'CountriesControllers::readAll');
 $router->get('project/countries/:id', 'CountriesControllers::read');
 $router->post('project/countries', 'CountriesControllers::create');

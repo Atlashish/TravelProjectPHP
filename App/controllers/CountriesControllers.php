@@ -1,4 +1,5 @@
 <?php
+// The above class is a PHP controller class for managing CRUD operations on a Countries model.
 
 namespace App\Controllers;
 
@@ -9,11 +10,13 @@ class CountriesControllers
 {
     private $data;
 
+    // The constructor is used to get the data from the HTTP request.
     public function __construct()
     {
         $this->data = json_decode(file_get_contents('php://input'), true);
     }
 
+    // Function to retrieve all countries
     public function readAll()
 {
     $statement = Countries::readAll();
@@ -24,6 +27,7 @@ class CountriesControllers
     }
 }
 
+    // Function to retrieve a single country by ID
     public function read()
     {
         $id = $_GET['id'];
@@ -34,6 +38,7 @@ class CountriesControllers
         Response::get(200, $statement);
     }
 
+    // Function to create a new country
     public function create()
     {
         $newCountry = $this->data;
@@ -45,6 +50,7 @@ class CountriesControllers
         }
     }
 
+    // Function to update an existing country
     public function update()
     {
         $id = $_GET['id'];
@@ -60,6 +66,7 @@ class CountriesControllers
         }
     }
 
+    // Function to delete an existing country
     public function delete()
     {
         $id = $_GET['id'];

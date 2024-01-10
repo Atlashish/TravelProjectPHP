@@ -1,4 +1,5 @@
 <?php
+//  The above class is a PHP controller class for managing CRUD operations on a Travels model.  
 
 namespace App\controllers;
 
@@ -9,27 +10,26 @@ class TravelsControllers
 {
     private $data;
 
+    // The constructor is used to get the data from the HTTP request.
     public function __construct()
     {
         $this->data = json_decode(file_get_contents('php://input'), true);
     }
 
+    // Function to retrieve all travels
     public function readAll()
 {
     $country = $_GET['country'] ?? null;
     $seatsAvailable = $_GET['seats_available'] ?? null;
 
     if ($country !== null || $seatsAvailable !== null) {
-        // Chiamata a una funzione di filtro o ricerca con $country e $seatsAvailable
-        $filteredTravels = Travels::search($country, $seatsAvailable);
-        Response::get(200, $filteredTravels);
+        Response::get(200, Travels::search($country, $seatsAvailable));
     } else {
-        // Nessun parametro specificato, restituisci tutti i viaggi
-        $allTravels = Travels::readAll();
-        Response::get(200, $allTravels);
+        Response::get(200, Travels::readAll());
     }
 }
 
+    // Function to retrieve a single travel by ID
     public function read()
     {
         $id = $_GET['id'];
@@ -40,6 +40,7 @@ class TravelsControllers
         Response::get(200, $statement);
     }
 
+    // Function to create a new travel
     public function create()
     {
         $newTravel = $this->data;
@@ -51,6 +52,7 @@ class TravelsControllers
         }
     }
 
+    // Function to update an existing travel
     public function update()
     {
         $id = $_GET['id'];
@@ -65,6 +67,7 @@ class TravelsControllers
         }
     }
 
+    // Function to delete an existing travel
     public function delete()
     {
         $id = $_GET['id'];

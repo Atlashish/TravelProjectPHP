@@ -10,14 +10,16 @@ class Travels
 {
     private static $table_name = "travels";
 
+    // Function to retrieve all travels from the database
     public static function readAll()
     {
-        $statement = App::resolver('database')::query(
+        $statement = App::get('database')::query(
             "SELECT * FROM " . self::$table_name);
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $results;
     }
 
+    // Function to search for travels in the database based on country and available seats
     public static function search($country, $seatsAvailable)
 {
     $params = [];
@@ -38,29 +40,30 @@ class Travels
 
         $query .= " " . implode(" AND ", $conditions);
 
-        $statement = App::resolver('database')::query($query, $params);
+        $statement = App::get('database')::query($query, $params);
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         return $results;
     } else {
-        // Se entrambi i parametri sono nulli, restituisci tutti i viaggi
         return self::readAll();
     }
 }
 
+    // Function to retrieve a single travel by ID from the database
     public static function read($id)
     {
-        $statement = App::resolver('database')::query(
+        $statement = App::get('database')::query(
             "SELECT * FROM " . self::$table_name . " WHERE id = :id",
             ['id' => $id]);
         $results = $statement->fetch(PDO::FETCH_ASSOC);
         return $results;
     }
 
+    // Function to create a new travel in the database
     public static function create($data)
     {
         try{
-            $statement = App::resolver('database')::query(
+            $statement = App::get('database')::query(
                 "INSERT INTO " . self::$table_name . " SET country = :country, seats_available = :seats_available",
                 [
                     'country' => $data['country'],
@@ -70,15 +73,16 @@ class Travels
             Response::get(500, $e->getMessage());
         }
         if($statement->rowCount() > 0){
-            return App::resolver('database')::$connection->lastInsertId();
+            return App::get('database')::$connection->lastInsertId();
         }
         return false;
     }
 
+    // Function to update an existing travel in the database
     public static function update($currentData, $newData)
     {
         try{
-            $statement = App::resolver('database')::query(
+            $statement = App::get('database')::query(
                 "UPDATE " . self::$table_name . " SET country = :country, seats_available = :seats_available WHERE id = :id",
                 [
                     'country' => $newData['country'],
@@ -91,10 +95,11 @@ class Travels
         return $statement && $statement->rowCount() > 0;
     }
 
+    // Function to delete an existing travel from the database by ID
     public static function delete($id)
     {
         try{
-            $statement = App::resolver('database')::query(
+            $statement = App::get('database')::query(
                 "DELETE FROM " . self::$table_name . " WHERE id = :id",
                 ['id' => $id]);
         } catch (\Exception $e){
