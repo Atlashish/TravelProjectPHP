@@ -7,24 +7,27 @@ The application provides a RESTful API to manage country and travel related info
 
 Countries:
 
-POST /countries/create.php: Create a new country.
-GET /countries/read.php: Gets the list of countries.
-PUT /countries/update.php: Update a country's information.
-DELETE /countries/delete.php: Delete a country.
+GET    /countries: Gets the list of countries.
+POST   /countries: Create new country.
+PATCH  /countries/{id}: Update a country's information by ID.
+DELETE /countries/{id}: Delete a country by ID.
 
 Travels:
 
-POST /travels/create.php: Create a new trip.
-GET /travels/read.php: Gets the list of trips.
-GET travels/read.php?coutry_searched={country}&seats_available_searched= {num}: Gets the list of trips filtered by country and/or seats availables.
-PUT /travels/update.php: Update trip information.
-DELETE /travels/delete.php: Delete a trip.
+GET    /travels: Gets the list of trips.
+GET    /travels/{id}: Gets a trip by ID.
+GET    /travels?country={country}&seats_available={seats_available}: Gets the list of trips filtered by country and/or seats availables.
+POST   /travels: Create a new trip with countries e seats.
+PATCH  /travels/{id} Update trip information by ID.
+DELETE /travels/{id} Delete a trip by ID.
 
 # Programming languages and others 🤖
 
 - PHP
 - MySQL
+- PDO
 - Composer Autoload
+- Dotenv
 
 # Links 🔗
 

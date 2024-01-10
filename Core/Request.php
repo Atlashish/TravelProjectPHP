@@ -1,4 +1,6 @@
 <?php
+/* The Request class in the Core namespace provides methods to retrieve the HTTP method and URI of the
+current request. */
 
 namespace Core;
 
