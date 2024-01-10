@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 $router->get('project/countries', 'CountriesControllers::readAll');
 $router->get('project/countries/:id', 'CountriesControllers::read');
 $router->post('project/countries', 'CountriesControllers::create');
